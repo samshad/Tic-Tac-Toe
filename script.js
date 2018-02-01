@@ -66,9 +66,15 @@ function win(konta) {
         for(var j = 0; j < 15; j++){
             if(isClicked[i][j] === konta) k++;
             else k = 0;
-            if(k >= 5) return true;
+            if(k >= 5){
+                danBam(i,j);
+                return true;
+            }
         }
-        if(k >= 5) return true;
+        if(k >= 5){
+            danBam(i,j);
+            return true;
+        }
     }
 
     for(var i = 0; i < 15; i++){
@@ -76,9 +82,15 @@ function win(konta) {
         for(var j = 0; j < 15; j++){
             if(isClicked[j][i] === konta) k++;
             else k = 0;
-            if(k >= 5) return true;
+            if(k >= 5){
+                uporNiche(j,i);
+                return true;
+            }
         }
-        if(k >= 5) return true;
+        if(k >= 5){
+            uporNiche(j,i);
+            return true;
+        }
     }
 
     for(var i = 0; i < 15; i++){
@@ -95,10 +107,21 @@ function diagonal1(i,j,konta) {
     while(i < 15 && j < 15){
         if(isClicked[i][j] === konta) k++;
         else k = 0;
-        if(k >= 5) return true;
+        if(k >= 5){
+            d1(i,j);
+            return true;
+        }
         i++; j++;
     }
     return false;
+}
+
+function d1(i,j) {
+    for(var l = 0; l < 5; l++){
+        var btn = document.getElementById("btn-" + i + "-" + j);
+        btn.style.backgroundColor = "red";
+        i--; j--;
+    }
 }
 
 function diagonal2(i,j,konta) {
@@ -106,10 +129,21 @@ function diagonal2(i,j,konta) {
     while(i < 15 && j >= 0){
         if(isClicked[i][j] === konta) k++;
         else k = 0;
-        if(k >= 5) return true;
+        if(k >= 5){
+            d2(i,j);
+            return true;
+        }
         i++; j--;
     }
     return false;
+}
+
+function d2(i,j) {
+    for(var l = 0; l < 5; l++){
+        var btn = document.getElementById("btn-" + i + "-" + j);
+        btn.style.backgroundColor = "red";
+        i--; j++;
+    }
 }
 
 function draw() {
@@ -123,4 +157,20 @@ function draw() {
 
 function newGame() {
     location.reload();
+}
+
+function danBam(i,j) {
+    for(var l = 0; l < 5; l++){
+        var btn = document.getElementById("btn-" + i + "-" + j);
+        btn.style.backgroundColor = "red";
+        j--;
+    }
+}
+
+function uporNiche(i,j) {
+    for(var l = 0; l < 5; l++){
+        var btn = document.getElementById("btn-" + i + "-" + j);
+        btn.style.backgroundColor = "red";
+        i--;
+    }
 }
