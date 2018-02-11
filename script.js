@@ -1,4 +1,4 @@
-var isClicked, currPlayer, moveOf, state;
+var isClicked, currPlayer, moveOf, state, koyta;
 
 init();
 
@@ -8,6 +8,7 @@ function init() {
     moveOf = "X";
     state = 0;
     isClicked = [];
+    koyta = 5;
 
     for(var i = 0; i < 15; i++) isClicked[i] = [];
 
@@ -45,7 +46,7 @@ function game() {
             //console.log(isClicked[x][y]);
             isClicked[x][y] = currPlayer;
             document.getElementById(id).textContent = moveOf;
-            if (win(currPlayer)) {
+            if(win(currPlayer)) {
                 var s = document.querySelector("#player-" + currPlayer).textContent;
                 var p = "";
                 for(var i = 0; i < s.length-4; i++) p += s[i];
@@ -66,12 +67,12 @@ function win(konta) {
         for(var j = 0; j < 15; j++){
             if(isClicked[i][j] === konta) k++;
             else k = 0;
-            if(k >= 5){
+            if(k >= koyta){
                 danBam(i,j);
                 return true;
             }
         }
-        if(k >= 5){
+        if(k >= koyta){
             danBam(i,j);
             return true;
         }
@@ -82,12 +83,12 @@ function win(konta) {
         for(var j = 0; j < 15; j++){
             if(isClicked[j][i] === konta) k++;
             else k = 0;
-            if(k >= 5){
+            if(k >= koyta){
                 uporNiche(j,i);
                 return true;
             }
         }
-        if(k >= 5){
+        if(k >= koyta){
             uporNiche(j,i);
             return true;
         }
@@ -107,7 +108,7 @@ function diagonal1(i,j,konta) {
     while(i < 15 && j < 15){
         if(isClicked[i][j] === konta) k++;
         else k = 0;
-        if(k >= 5){
+        if(k >= koyta){
             d1(i,j);
             return true;
         }
@@ -117,7 +118,7 @@ function diagonal1(i,j,konta) {
 }
 
 function d1(i,j) {
-    for(var l = 0; l < 5; l++){
+    for(var l = 0; l < koyta; l++){
         var btn = document.getElementById("btn-" + i + "-" + j);
         btn.style.backgroundColor = "red";
         i--; j--;
@@ -129,7 +130,7 @@ function diagonal2(i,j,konta) {
     while(i < 15 && j >= 0){
         if(isClicked[i][j] === konta) k++;
         else k = 0;
-        if(k >= 5){
+        if(k >= koyta){
             d2(i,j);
             return true;
         }
@@ -139,7 +140,7 @@ function diagonal2(i,j,konta) {
 }
 
 function d2(i,j) {
-    for(var l = 0; l < 5; l++){
+    for(var l = 0; l < koyta; l++){
         var btn = document.getElementById("btn-" + i + "-" + j);
         btn.style.backgroundColor = "red";
         i--; j++;
@@ -160,7 +161,7 @@ function newGame() {
 }
 
 function danBam(i,j) {
-    for(var l = 0; l < 5; l++){
+    for(var l = 0; l < koyta; l++){
         var btn = document.getElementById("btn-" + i + "-" + j);
         btn.style.backgroundColor = "red";
         j--;
@@ -168,7 +169,7 @@ function danBam(i,j) {
 }
 
 function uporNiche(i,j) {
-    for(var l = 0; l < 5; l++){
+    for(var l = 0; l < koyta; l++){
         var btn = document.getElementById("btn-" + i + "-" + j);
         btn.style.backgroundColor = "red";
         i--;
